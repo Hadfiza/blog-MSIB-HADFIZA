@@ -1,29 +1,39 @@
 @extends('layouts.app')
 
-@section('title', 'Profile')
+@section('title', 'Profil Pengguna')
 
 @section('content')
-    <h1>User Profile</h1>
+    <div class="container mt-4">
+        <h1>Profil Pengguna</h1>
 
-    @if (session('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
+        {{-- Pesan sukses --}}
+        @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
 
-    <form action="{{ route('user.profile.update') }}" method="POST">
-        @csrf
-        <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" name="name" id="name" value="{{ old('name', $user->name) }}" class="form-control" required>
+        {{-- Tampilkan Informasi Profil --}}
+        <div class="card">
+            <div class="card-body text-center">
+                @if ($user->photo)
+                    <img src="{{ asset('storage/' . $user->photo) }}" alt="Foto Profil" class="img-thumbnail mb-3" width="150">
+                @else
+                    <img src="{{ asset('images/default-user.png') }}" alt="Foto Profil Default" class="img-thumbnail mb-3" width="150">
+                @endif
+                <h5 class="card-title">Nama: {{ $user->name }}</h5>
+                <p class="card-text">Email: {{ $user->email }}</p>
+                <a href="{{ route('user.profile.edit') }}" class="btn btn-primary">Edit Profil</a>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" name="email" id="email" value="{{ old('email', $user->email) }}" class="form-control" required>
-        </div>
-        {{-- <button type="submit" class="btn btn-primary mt-2">Update Profile</button> --}}
-    </form>
 
-    {{-- <p class="mt-4"><strong>Email:</strong> {{ $user->email }}</p> --}}
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Nama: {{ $user->name }}</h5>
+                <p class="card-text">Email: {{ $user->email }}</p>
+                <a href="{{ route('user.profile.edit') }}" class="btn btn-primary">Edit Profil</a>
+            </div>
+        </div>
+    </div>
 @endsection

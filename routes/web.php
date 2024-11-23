@@ -37,8 +37,14 @@ Route::middleware(['auth'])->group(function () {
     
     // Rute untuk melihat dan memperbarui profil pengguna
     Route::get('/user/profile/show', [UserController::class, 'showProfile'])->name('profile.show');
+    // Rute untuk melihat dan memperbarui profil pengguna
     Route::get('/user/profile', [UserController::class, 'profile'])->name('user.profile');
-    Route::put('/user/profile', [UserController::class, 'updateProfile'])->name('user.profile.update');
+    // Route::post('/user/profile', [UserController::class, 'updateProfile'])->name('user.profile.update');
+
+    Route::get('/user/profile/edit', [UserController::class, 'editProfile'])->name('user.profile.edit');
+    Route::post('/user/profile', [UserController::class, 'updateProfile'])->name('user.profile.update');
+
+
 
     // Rute CRUD untuk kategori
     Route::get('categories', [CategoryController::class, 'index'])->name('categories.index'); // Menampilkan semua kategori

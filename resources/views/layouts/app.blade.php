@@ -50,8 +50,13 @@
                     <ul class="navbar-nav">
                         @if (auth()->check())
                             <li class="nav-item">
-                                <a class="nav-link nav-link-icon" href="{{ route('profile.show') }}">
-                                    <i class="fas fa-user-circle"></i> Profile
+                                <a class="nav-link nav-link-icon d-flex align-items-center" href="{{ route('profile.show') }}">
+                                    @if (auth()->user()->photo)
+                                        <img src="{{ asset('storage/' . auth()->user()->photo) }}" alt="Foto Profil" class="rounded-circle" width="30" height="30">
+                                    @else
+                                        <i class="fas fa-user-circle"></i>
+                                    @endif
+                                    <span class="ms-2">Profile</span>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -67,7 +72,7 @@
                                 <a class="nav-link" href="{{ route('login') }}">Login</a>
                             </li>
                         @endif
-                    </ul>
+                    </ul>                    
                 </div>
             </div>
         </nav>
